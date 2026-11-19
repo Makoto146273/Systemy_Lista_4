@@ -181,33 +181,19 @@ class Program
     {
         Console.WriteLine("\n========== ODPOWIEDZI NA PYTANIA ==========");
 
+        Console.WriteLine("\n* Zasada DRY nie jest zachowana, ponieważ połączenie trzech wariantów w jednej metodzie mogłoby wprowadzić dodatkowe instrukcje warunkowe do pętli, co wpłynęłoby na wiarygodność pomiarów czasu działania algorytmów.");
+
         Console.WriteLine("\n1. Dlaczego bez synchronizacji wynik moze byc niepoprawny?");
-        Console.WriteLine(
-            "Operacja licznik++ sklada sie z odczytu, zwiekszenia " +
-            "i zapisu wartosci. Kilka watkow moze jednoczesnie " +
-            "odczytac ta sama wartosc, przez co niektore inkrementacje " +
-            "zostana utracone."
-        );
+        Console.WriteLine("Operacja licznik++ sklada sie z odczytu, zwiekszenia i zapisu wartosci. Kilka watkow moze jednoczesnie odczytac ta sama wartosc, przez co niektore inkrementacje zostana utracone.");
 
         Console.WriteLine("\n2. Dlaczego lock zapewnia poprawny wynik?");
-        Console.WriteLine(
-            "Lock pozwala tylko jednemu watkowi jednoczesnie " +
-            "wykonywac kod znajdujacy sie w sekcji krytycznej. " +
-            "Dzieki temu inkrementacje nie koliduja ze soba."
-        );
+        Console.WriteLine("Lock pozwala tylko jednemu watkowi jednoczesnie wykonywac kod znajdujacy sie w sekcji krytycznej. Dzieki temu inkrementacje nie koliduja ze soba.");
 
         Console.WriteLine("\n3. Jak dziala Interlocked.Increment?");
-        Console.WriteLine(
-            "Interlocked.Increment wykonuje atomowe zwiekszenie " +
-            "wartosci zmiennej. Operacja jest niepodzielna, " +
-            "dlatego nie dochodzi do utraty inkrementacji."
-        );
+        Console.WriteLine("Interlocked.Increment wykonuje atomowe zwiekszenie wartosci zmiennej. Operacja jest niepodzielna, dlatego nie dochodzi do utraty inkrementacji.");
 
         Console.WriteLine("\n4. Czy operacja ++ jest atomowa?");
-        Console.WriteLine(
-            "Nie. Operacja ++ sklada sie z kilku krokow: " +
-            "odczytu wartosci, zwiekszenia jej i zapisania wyniku."
-        );
+        Console.WriteLine("Nie. Operacja ++ sklada sie z kilku krokow: wartosci, zwiekszenia jej i zapisania wyniku.");
 
         Console.WriteLine("\n5. Porownanie srednich czasow:");
 
@@ -225,11 +211,6 @@ class Program
             Console.WriteLine("Interlocked.");
 
         Console.WriteLine("\n7. Wniosek:");
-        Console.WriteLine(
-            "Synchronizacja zapewnia poprawny wynik, ale moze " +
-            "zwiekszac czas wykonania programu. Lock chroni cala " +
-            "sekcje krytyczna, natomiast Interlocked wykonuje " +
-            "atomowa operacje na pojedynczej zmiennej."
-        );
+        Console.WriteLine("Synchronizacja zapewnia poprawny wynik, ale moze zwiekszac czas wykonania programu. Lock chroni cala sekcje krytyczna, natomiast Interlocked wykonuje atomowa operacje na pojedynczej zmiennej.");
     }
 }
