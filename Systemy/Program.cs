@@ -183,34 +183,10 @@ class Program
 
         Console.WriteLine("\n* Zasada DRY nie jest zachowana, ponieważ połączenie trzech wariantów w jednej metodzie mogłoby wprowadzić dodatkowe instrukcje warunkowe do pętli, co wpłynęłoby na wiarygodność pomiarów czasu działania algorytmów.");
 
-        Console.WriteLine("\n1. Dlaczego bez synchronizacji wynik moze byc niepoprawny?");
-        Console.WriteLine("Operacja licznik++ sklada sie z odczytu, zwiekszenia i zapisu wartosci. Kilka watkow moze jednoczesnie odczytac ta sama wartosc, przez co niektore inkrementacje zostana utracone.");
+        Console.WriteLine("\n1. Dlaczego operacja licznik++ nie jest atomowa? Gdzie moze wystapic przelaczenie watkow?");
+        Console.WriteLine("Operacja licznik++ sklada sie z kilku instrukcji: odczytania aktualnej wartosci, dodania 1 i zapisania wyniku. W kodzie IL odpowiadaja im m.in. instrukcje ladowania wartosci (ldfld), dodawania (add) i zapisywania (stfld). Przelaczenie watkow moze nastapic pomiedzy odczytem a zapisem. Wtedy dwa watki moga odczytac ta sama wartosc i zapisac ten sam wynik, przez co jedna inkrementacja zostanie utracona.");
 
-        Console.WriteLine("\n2. Dlaczego lock zapewnia poprawny wynik?");
-        Console.WriteLine("Lock pozwala tylko jednemu watkowi jednoczesnie wykonywac kod znajdujacy sie w sekcji krytycznej. Dzieki temu inkrementacje nie koliduja ze soba.");
-
-        Console.WriteLine("\n3. Jak dziala Interlocked.Increment?");
-        Console.WriteLine("Interlocked.Increment wykonuje atomowe zwiekszenie wartosci zmiennej. Operacja jest niepodzielna, dlatego nie dochodzi do utraty inkrementacji.");
-
-        Console.WriteLine("\n4. Czy operacja ++ jest atomowa?");
-        Console.WriteLine("Nie. Operacja ++ sklada sie z kilku krokow: wartosci, zwiekszenia jej i zapisania wyniku.");
-
-        Console.WriteLine("\n5. Porownanie srednich czasow:");
-
-        Console.WriteLine("Bez synchronizacji: " + czasBezLock + " ms");
-        Console.WriteLine("Lock: " + czasLock + " ms");
-        Console.WriteLine("Interlocked: " + czasInterlocked + " ms");
-
-        Console.WriteLine("\n6. Ktora metoda byla najszybsza?");
-
-        if (czasBezLock <= czasLock && czasBezLock <= czasInterlocked)
-            Console.WriteLine("Bez synchronizacji.");
-        else if (czasLock <= czasInterlocked)
-            Console.WriteLine("Lock.");
-        else
-            Console.WriteLine("Interlocked.");
-
-        Console.WriteLine("\n7. Wniosek:");
-        Console.WriteLine("Synchronizacja zapewnia poprawny wynik, ale moze zwiekszac czas wykonania programu. Lock chroni cala sekcje krytyczna, natomiast Interlocked wykonuje atomowa operacje na pojedynczej zmiennej.");
+        Console.WriteLine("\n2. Dlaczego lock jest wolniejszy od Interlocked, ale czesciej potrzebny?");
+        Console.WriteLine("Lock jest bardziej uniwersalny, poniewaz pozwala zabezpieczyc kilka instrukcji lub operacji na wielu zmiennych, a Interlocked sluzy glownie do pojedynczych operacji atomowych.");
     }
 }
